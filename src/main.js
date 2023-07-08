@@ -1,5 +1,5 @@
 async function getTrendingMoviesPreview() {
-    const res = await fetch('https://api.themoviedb.org/3/trending/all/day?api_key='+ API_KEY)
+    const res = await fetch('https://api.themoviedb.org/3/trending/all/day?api_key='+ API_KEY);
     const data = await res.json();
 
     const movies = data.results;
@@ -19,4 +19,26 @@ async function getTrendingMoviesPreview() {
     });
 }
 
+async function getCategoriesPreview() {
+    const res = await fetch('https://api.themoviedb.org/3/genre/movie/list?api_key=' + API_KEY);
+    const data = await res.json();
+
+    const categories = data.genres;
+    categories.forEach(category => {
+        const previewCategoriesContainer = document.querySelector('#categoriesPreview .categoriesPreview-list');
+        const categoryContainer = document.createElement('div');//created the element div in html
+        categoryContainer.classList.add('category-container');//added the class to the div in html
+        const categoryTitle = document.createElement('h3');//created the h3 element in html
+        categoryTitle.classList.add('category-title');//added the class to the h3 in html
+        categoryTitle.setAttribute('id','id'+ category.id);//added the id to the h3 in html
+        const categoryTitleText = document.createTextNode(category.name);//added a text to the h3 
+
+        categoryTitle.appendChild(categoryTitleText);//added the text we put to the h3 in html
+        categoryContainer.appendChild(categoryTitle);//added the h3 to the div
+        previewCategoriesContainer.appendChild(categoryContainer);//added the div to the article
+
+    });
+}
+
 getTrendingMoviesPreview();
+getCategoriesPreview();
