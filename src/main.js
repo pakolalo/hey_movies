@@ -13,7 +13,7 @@ async function getTrendingMoviesPreview() {
 
     const movies = data.results;
     movies.forEach(movie => {
-        const trendingPreviewMoviesContainer = document.querySelector('#trendingPreview .trendingPreview-movieList')
+        const trendingMoviesPreviewList = document.querySelector('#trendingPreview .trendingPreview-movieList')
         const movieContainer = document.createElement('div');
         movieContainer.classList.add('movie-container');//Added the class movie-container to the div in HTML
         const movieImg = document.createElement('img');// Created the element img in HTML
@@ -22,7 +22,7 @@ async function getTrendingMoviesPreview() {
         movieImg.setAttribute('src', 'https://image.tmdb.org/t/p/w300/'+ movie.poster_path);//added the attribute src to the img
 
         movieContainer.appendChild(movieImg);//added the image to the div 
-        trendingPreviewMoviesContainer.appendChild(movieContainer);//added the div to the article in html
+        trendingMoviesPreviewList.appendChild(movieContainer);//added the div to the article in html
 
 
     });
@@ -33,7 +33,7 @@ async function getCategoriesPreview() {
 
     const categories = data.genres;
     categories.forEach(category => {
-        const previewCategoriesContainer = document.querySelector('#categoriesPreview .categoriesPreview-list');
+        const categoriesPreviewList = document.querySelector('#categoriesPreview .categoriesPreview-list');
         const categoryContainer = document.createElement('div');//created the element div in html
         categoryContainer.classList.add('category-container');//added the class to the div in html
         const categoryTitle = document.createElement('h3');//created the h3 element in html
@@ -43,7 +43,7 @@ async function getCategoriesPreview() {
 
         categoryTitle.appendChild(categoryTitleText);//added the text we put to the h3 in html
         categoryContainer.appendChild(categoryTitle);//added the h3 to the div
-        previewCategoriesContainer.appendChild(categoryContainer);//added the div to the article
+        categoriesPreviewList.appendChild(categoryContainer);//added the div to the article
 
     });
 }
