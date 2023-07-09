@@ -10,10 +10,10 @@ const api = axios.create({
 
 async function getTrendingMoviesPreview() {
     const {data} = await api('trending/all/day');
-
     const movies = data.results;
+
+    trendingMoviesPreviewList.innerHTML = '';
     movies.forEach(movie => {
-        const trendingMoviesPreviewList = document.querySelector('#trendingPreview .trendingPreview-movieList')
         const movieContainer = document.createElement('div');
         movieContainer.classList.add('movie-container');//Added the class movie-container to the div in HTML
         const movieImg = document.createElement('img');// Created the element img in HTML
@@ -30,10 +30,12 @@ async function getTrendingMoviesPreview() {
 
 async function getCategoriesPreview() {
     const {data} = await api('genre/movie/list');
-
     const categories = data.genres;
+
+    categoriesPreviewList.innerHTML= '';
+
     categories.forEach(category => {
-        const categoriesPreviewList = document.querySelector('#categoriesPreview .categoriesPreview-list');
+        
         const categoryContainer = document.createElement('div');//created the element div in html
         categoryContainer.classList.add('category-container');//added the class to the div in html
         const categoryTitle = document.createElement('h3');//created the h3 element in html
