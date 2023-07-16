@@ -62,6 +62,11 @@ function categoriesPage () {
     categoriesPreviewSection.classList.add('inactive');
     genericSection.classList.remove('inactive');
     movieDetailSection.classList.add('inactive');
+
+    const [_, categoryData] = location.hash.split('=')//with split we are saying that every time there is a = we have a position of the new array example ['#category', 'id-name']
+    const[categoryId, categoryName]
+
+    getMoviesByCategory(id);
 }
 
 function movieDetailsPage () {
