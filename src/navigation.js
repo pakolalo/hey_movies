@@ -25,6 +25,9 @@ function navigator () {
     } else { //if we are in home page
         homePage();
     }
+
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
 }
 
 function homePage () {
