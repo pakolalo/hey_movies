@@ -63,10 +63,12 @@ function categoriesPage () {
     genericSection.classList.remove('inactive');
     movieDetailSection.classList.add('inactive');
 
-    const [_, categoryData] = location.hash.split('=')//with split we are saying that every time there is a = we have a position of the new array example ['#category', 'id-name']
-    const[categoryId, categoryName]
+    const [_, categoryData] = location.hash.split('=');//with split we are saying that every time there is a = we have a position of the new array example ['#category', 'id-name']
+    const [categoryId, categoryName] = categoryData.split('-');
 
-    getMoviesByCategory(id);
+    headerCategoryTitle.innerHTML = categoryName
+
+    getMoviesByCategory(categoryId);
 }
 
 function movieDetailsPage () {

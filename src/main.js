@@ -53,7 +53,7 @@ async function getCategoriesPreview() {
     });
 }
 
-async function getMoviesByCategory() {
+async function getMoviesByCategory(id) {
     const {data} = await api('discover/movie', {
         params: {
             with_genres: id,
@@ -61,7 +61,7 @@ async function getMoviesByCategory() {
     });
     const movies = data.results;
 
-    trendingMoviesPreviewList.innerHTML = '';// avoid to download again the movies and the categories
+    genericSection.innerHTML = '';// avoid to download again the movies and the categories
     movies.forEach(movie => {
         const movieContainer = document.createElement('div');
         movieContainer.classList.add('movie-container');//Added the class movie-container to the div in HTML
@@ -71,7 +71,7 @@ async function getMoviesByCategory() {
         movieImg.setAttribute('src', 'https://image.tmdb.org/t/p/w300/'+ movie.poster_path);//added the attribute src to the img
 
         movieContainer.appendChild(movieImg);//added the image to the div 
-        trendingMoviesPreviewList.appendChild(movieContainer);//added the div to the article in html
+        genericSection.appendChild(movieContainer);//added the div to the article in html
 
 
     });
