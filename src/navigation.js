@@ -90,6 +90,10 @@ function movieDetailsPage () {
     categoriesPreviewSection.classList.add('inactive');
     genericSection.classList.add('inactive');
     movieDetailSection.classList.remove('inactive');
+
+    const [_, movieId] = location.hash.split('=');//with split we are saying that every time there is a = we have a position of the new array example ['#movie', '132345']
+
+    getMovieById(movieId);
 }
 
 function searchPage () {
