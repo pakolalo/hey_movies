@@ -31,6 +31,9 @@ function createMovies(movies, container, lazyLoad = false) {
         movieImg.classList.add('movie-img');// Added the class movie-img to the img in HTML
         movieImg.setAttribute('alt', movie.title);//added the attribute alt to the img
         movieImg.setAttribute(lazyLoad ? 'data-img' : 'src', 'https://image.tmdb.org/t/p/w300/'+ movie.poster_path);//added the attribute src to the img
+        movieImg.addEventListener('error', () => {
+            movieImg.setAttribute('src', '/assets/error.jpg')
+        })
 
         if (lazyLoad) {
         lazyLoader.observe(movieImg);
@@ -90,7 +93,7 @@ async function getMoviesByCategory(id) {
     });
     const movies = data.results;
 
-    createMovies(movies, genericSection)
+    createMovies(movies, genericSection, true)
 }
 
 async function getMoviesBySearch(query) {
