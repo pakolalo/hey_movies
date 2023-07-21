@@ -19,8 +19,10 @@ const lazyLoader = new IntersectionObserver((entries) => {
     })
 })
 
-function createMovies(movies, container, lazyLoad = false) {
-    container.innerHTML='';
+function createMovies (movies, container, {lazyLoad = false, clean = true,}={}) {
+    if (clean) {
+        container.innerHTML='';
+    }
     movies.forEach(movie => {
         const movieContainer = document.createElement('div');
         movieContainer.classList.add('movie-container');//Added the class movie-container to the div in HTML
@@ -92,8 +94,30 @@ async function getMoviesByCategory(id) {
         },
     });
     const movies = data.results;
+    maxPage = data.total_pages;
 
-    createMovies(movies, genericSection, true)
+    createMovies(movies, genericSection, {lazyLoad: true},)
+}
+
+function getPaginatedMoviesByCategory(id) {
+    return async function () {
+    const { scrollTop, scrollHeight, clientHeight} = document.documentElement;
+
+    const scrollBottom = (scrollTop + clientHeight) >= (scrollHeight - 15);
+    const pageIsNotMax = page < maxPage;
+
+    if (scrollBottom && pageIsNotMax) {
+    page ++;
+    const {data} = await api('discover/movie', {
+        params: {
+            with_genres: id,
+            page,
+        },
+    });
+    const movies = data.results;
+    createMovies(movies, genericSection, {lazyLoad: true, clean: false},);
+    };
+    }
 }
 
 async function getMoviesBySearch(query) {
@@ -103,15 +127,56 @@ async function getMoviesBySearch(query) {
         },
     });
     const movies = data.results;
+    maxPage = data.total_pages
 
     createMovies(movies, genericSection)
+}
+
+function getPaginatedMoviesBySearch(query) {
+    return async function () {
+    const { scrollTop, scrollHeight, clientHeight} = document.documentElement;
+
+    const scrollBottom = (scrollTop + clientHeight) >= (scrollHeight - 15);
+    const pageIsNotMax = page < maxPage;
+
+    if (scrollBottom && pageIsNotMax) {
+    page ++;
+    const {data} = await api('search/multi', {
+        params: {
+            query,
+            page,
+        },
+    });
+    const movies = data.results;
+    createMovies(movies, genericSection, {lazyLoad: true, clean: false},);
+    };
+    }
 }
 
 async function getTrendingMovies() {
     const {data} = await api('trending/all/day');
     const movies = data.results;
+    maxPage = data.total_pages;
 
-    createMovies(movies, genericSection);
+    createMovies(movies, genericSection, {lazyLoad: true, clean: true},);
+}
+
+async function getPaginatedTrendingMovies() {
+    const { scrollTop, scrollHeight, clientHeight} = document.documentElement;
+
+    const scrollBottom = (scrollTop + clientHeight) >= (scrollHeight - 15);
+    const pageIsNotMax = page < maxPage;
+
+    if (scrollBottom && pageIsNotMax) {
+    page ++;
+    const {data} = await api('trending/all/day', {
+        params: {
+            page,
+        },
+    });
+    const movies = data.results;
+    createMovies(movies, genericSection, {lazyLoad: true, clean: false},);
+    };
 }
 
 async function  getMovieById(id) {

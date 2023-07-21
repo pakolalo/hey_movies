@@ -1,3 +1,7 @@
+let maxPage;
+let page = 1;
+let infiniteScroll;
+
 searchFormBtn.addEventListener('click', () => {
     location.hash = '#search=' + searchFormInput.value;
 });
@@ -11,9 +15,15 @@ arrowBtn.addEventListener('click', () => {
 
 window.addEventListener('DOMContentLoaded', navigator, false);
 window.addEventListener('hashchange', navigator, false);
+window.addEventListener('scroll', infiniteScroll, false);
 
 function navigator () {
     console.log({location});
+
+    if (infiniteScroll) {
+        window.removeEventListener('scroll',infiniteScroll, {passive: false,},);
+        infiniteScroll = undefined;
+    }
 
     if (location.hash.startsWith('#trends')) {
         trendsPage();//if we are in trends page
@@ -29,6 +39,10 @@ function navigator () {
 
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
+
+    if (infiniteScroll) {
+        window.addEventListener('scroll', infiniteScroll, {passive: false,},);
+    }
 }
 
 function homePage () {
@@ -73,6 +87,7 @@ function categoriesPage () {
     headerCategoryTitle.innerHTML = categoryName
 
     getMoviesByCategory(categoryId);
+    infiniteScroll = getPaginatedMoviesByCategory(categoryId);
 }
 
 function movieDetailsPage () {
@@ -114,6 +129,8 @@ function searchPage () {
 
     const [_, query] = location.hash.split('=');//with split we are saying that every time there is a = we have a position of the new array example ['#search', 'find']
     getMoviesBySearch(query);
+
+    infiniteScroll = getPaginatedMoviesBySearch(query);
 }
 
 function trendsPage () {
@@ -135,4 +152,6 @@ function trendsPage () {
     headerCategoryTitle.innerHTML = 'Trending'
 
     getTrendingMovies();
+
+    infiniteScroll = getPaginatedTrendingMovies;
 }
