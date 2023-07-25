@@ -10,7 +10,6 @@ trendingBtn.addEventListener('click', () => {
 });
 arrowBtn.addEventListener('click', () => {
     history.back();
-    //location.hash = '#home'
 });
 
 window.addEventListener('DOMContentLoaded', navigator, false);
@@ -26,14 +25,14 @@ function navigator () {
     }
 
     if (location.hash.startsWith('#trends')) {
-        trendsPage();//if we are in trends page
+        trendsPage();
     } else if (location.hash.startsWith('#search=')) {
-        searchPage();// if we are in seach page
+        searchPage();
     } else if (location.hash.startsWith('#movie=')) {
-        movieDetailsPage();//if we are in movie page
+        movieDetailsPage();
     } else if (location.hash.startsWith('#category=')) {
-        categoriesPage(); //if we are in category page
-    } else { //if we are in home page
+        categoriesPage();
+    } else {
         homePage();
     }
 
@@ -81,7 +80,7 @@ function categoriesPage () {
     genericSection.classList.remove('inactive');
     movieDetailSection.classList.add('inactive');
 
-    const [_, categoryData] = location.hash.split('=');//with split we are saying that every time there is a = we have a position of the new array example ['#category', 'id-name']
+    const [_, categoryData] = location.hash.split('=');
     const [categoryId, categoryName] = categoryData.split('-');
 
     headerCategoryTitle.innerHTML = categoryName
@@ -94,7 +93,6 @@ function movieDetailsPage () {
     console.log('MOVIE!!');
 
     headerSection.classList.add('header-container--long');
-    //headerSection.style.background = '';
     arrowBtn.classList.remove('inactive');
     arrowBtn.classList.add('header-arrow--white');
     headerTitle.classList.add('inactive');
@@ -106,7 +104,7 @@ function movieDetailsPage () {
     genericSection.classList.add('inactive');
     movieDetailSection.classList.remove('inactive');
 
-    const [_, movieId] = location.hash.split('=');//with split we are saying that every time there is a = we have a position of the new array example ['#movie', '132345']
+    const [_, movieId] = location.hash.split('=');
 
     getMovieById(movieId);
 }
@@ -127,7 +125,7 @@ function searchPage () {
     genericSection.classList.remove('inactive');
     movieDetailSection.classList.add('inactive');
 
-    const [_, query] = location.hash.split('=');//with split we are saying that every time there is a = we have a position of the new array example ['#search', 'find']
+    const [_, query] = location.hash.split('=');
     getMoviesBySearch(query);
 
     infiniteScroll = getPaginatedMoviesBySearch(query);
