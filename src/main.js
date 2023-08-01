@@ -25,14 +25,14 @@ function createMovies (movies, container, {lazyLoad = false, clean = true,}={}) 
     }
     movies.forEach(movie => {
         const movieContainer = document.createElement('div');
-        movieContainer.classList.add('movie-container');
+        movieContainer.classList.add('movie-container');//Added the class movie-container to the div in HTML
         movieContainer.addEventListener('click', () => {
             location.hash = '#movie=' + movie.id;
         })
-        const movieImg = document.createElement('img');
-        movieImg.classList.add('movie-img');
-        movieImg.setAttribute('alt', movie.title);
-        movieImg.setAttribute(lazyLoad ? 'data-img' : 'src', 'https://image.tmdb.org/t/p/w300/'+ movie.poster_path);
+        const movieImg = document.createElement('img');// Created the element img in HTML
+        movieImg.classList.add('movie-img');// Added the class movie-img to the img in HTML
+        movieImg.setAttribute('alt', movie.title);//added the attribute alt to the img
+        movieImg.setAttribute(lazyLoad ? 'data-img' : 'src', 'https://image.tmdb.org/t/p/w300/'+ movie.poster_path);//added the attribute src to the img
         movieImg.addEventListener('error', () => {
             movieImg.setAttribute('src', '/assets/error.jpg')
         })
@@ -41,31 +41,31 @@ function createMovies (movies, container, {lazyLoad = false, clean = true,}={}) 
         lazyLoader.observe(movieImg);
         }
 
-        movieContainer.appendChild(movieImg);
-        container.appendChild(movieContainer);
+        movieContainer.appendChild(movieImg);//added the image to the div 
+        container.appendChild(movieContainer);//added the div to the article in html
 
 
     });
 }
 
 function createCategories(categories, container) {
-    container.innerHTML= '';
+    container.innerHTML= '';// avoid to download again the movies and the categories
 
     categories.forEach(category => {
         
-        const categoryContainer = document.createElement('div');
-        categoryContainer.classList.add('category-container');
-        const categoryTitle = document.createElement('h3');
-        categoryTitle.classList.add('category-title');
-        categoryTitle.setAttribute('id','id'+ category.id);
+        const categoryContainer = document.createElement('div');//created the element div in html
+        categoryContainer.classList.add('category-container');//added the class to the div in html
+        const categoryTitle = document.createElement('h3');//created the h3 element in html
+        categoryTitle.classList.add('category-title');//added the class to the h3 in html
+        categoryTitle.setAttribute('id','id'+ category.id);//added the id to the h3 in html
         categoryTitle.addEventListener('click', () => {
             location.hash = `#category=${category.id}-${category.name}`;
         });
-        const categoryTitleText = document.createTextNode(category.name);
+        const categoryTitleText = document.createTextNode(category.name);//added a text to the h3 
 
-        categoryTitle.appendChild(categoryTitleText);
-        categoryContainer.appendChild(categoryTitle);
-        container.appendChild(categoryContainer);
+        categoryTitle.appendChild(categoryTitleText);//added the text we put to the h3 in html
+        categoryContainer.appendChild(categoryTitle);//added the h3 to the div
+        container.appendChild(categoryContainer);//added the div to the article
 
     });
 }
