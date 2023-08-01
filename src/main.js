@@ -26,22 +26,31 @@ function createMovies (movies, container, {lazyLoad = false, clean = true,}={}) 
     movies.forEach(movie => {
         const movieContainer = document.createElement('div');
         movieContainer.classList.add('movie-container');//Added the class movie-container to the div in HTML
-        movieContainer.addEventListener('click', () => {
-            location.hash = '#movie=' + movie.id;
-        })
+
         const movieImg = document.createElement('img');// Created the element img in HTML
         movieImg.classList.add('movie-img');// Added the class movie-img to the img in HTML
         movieImg.setAttribute('alt', movie.title);//added the attribute alt to the img
         movieImg.setAttribute(lazyLoad ? 'data-img' : 'src', 'https://image.tmdb.org/t/p/w300/'+ movie.poster_path);//added the attribute src to the img
         movieImg.addEventListener('error', () => {
-            movieImg.setAttribute('src', '/assets/error.jpg')
-        })
+            movieImg.setAttribute('src', '/assets/error.jpg');
+        });
+
+        movieImg.addEventListener('click', () => {
+            location.hash = '#movie=' + movie.id;
+        });
+
+        const movieBtn = document.createElement('button');
+        movieBtn.classList.add('movie-btn');
+        movieBtn.addEventListener('click', () => {
+            movieBtn.classList.toggle('movie-btn--liked');
+        });
 
         if (lazyLoad) {
         lazyLoader.observe(movieImg);
         }
 
-        movieContainer.appendChild(movieImg);//added the image to the div 
+        movieContainer.appendChild(movieImg);//added the image to the div
+        movieContainer.appendChild(movieBtn) 
         container.appendChild(movieContainer);//added the div to the article in html
 
 
