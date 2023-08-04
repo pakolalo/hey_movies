@@ -56,13 +56,15 @@ function homePage () {
     headerCategoryTitle.classList.add('inactive');
     searchForm.classList.remove('inactive');
 
-    trendingPreviewSection.classList.remove('inactive');
+    trendingMoviesPreviewSection.classList.remove('inactive');
+    trendingSeriesPreviewSection.classList.remove('inactive');
     categoriesPreviewSection.classList.remove('inactive');
     likedMoviesSection.classList.remove('inactive');
     genericSection.classList.add('inactive');
     movieDetailSection.classList.add('inactive');
 
     getTrendingMoviesPreview();
+    getTrendindSeriesPreview();
     getCategoriesPreview();
     getLikedMovies();
 }
@@ -78,7 +80,8 @@ function categoriesPage () {
     headerCategoryTitle.classList.remove('inactive');
     searchForm.classList.add('inactive');
 
-    trendingPreviewSection.classList.add('inactive');
+    trendingMoviesPreviewSection.classList.add('inactive');
+    trendingSeriesPreviewSection.classList.add('inactive');
     categoriesPreviewSection.classList.add('inactive');
     likedMoviesSection.classList.add('inactive');
     genericSection.classList.remove('inactive');
@@ -104,7 +107,8 @@ function movieDetailsPage () {
     headerCategoryTitle.classList.add('inactive');
     searchForm.classList.add('inactive');
 
-    trendingPreviewSection.classList.add('inactive');
+    trendingMoviesPreviewSection.classList.add('inactive');
+    trendingSeriesPreviewSection.classList.add('inactive');
     categoriesPreviewSection.classList.add('inactive');
     likedMoviesSection.classList.add('inactive');
     genericSection.classList.add('inactive');
@@ -126,7 +130,8 @@ function searchPage () {
     headerCategoryTitle.classList.add('inactive');
     searchForm.classList.remove('inactive');
 
-    trendingPreviewSection.classList.add('inactive');
+    trendingMoviesPreviewSection.classList.add('inactive');
+    trendingSeriesPreviewSection.classList.add('inactive');
     categoriesPreviewSection.classList.add('inactive');
     likedMoviesSection.classList.add('inactive');
     genericSection.classList.remove('inactive');
@@ -149,7 +154,8 @@ function trendsPage () {
     headerCategoryTitle.classList.remove('inactive');
     searchForm.classList.add('inactive');
 
-    trendingPreviewSection.classList.add('inactive');
+    trendingMoviesPreviewSection.classList.add('inactive');
+    trendingSeriesPreviewSection.classList.add('inactive');
     categoriesPreviewSection.classList.add('inactive');
     likedMoviesSection.classList.add('inactive');
     genericSection.classList.remove('inactive');

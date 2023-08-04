@@ -36,6 +36,7 @@ function likeMovie(movie) {
     if (location.hash =='') {
         getLikedMovies();
         getTrendingMoviesPreview();
+        getTrendindSeriesPreview();
     }
 }
 
@@ -90,6 +91,46 @@ function createMovies (movies, container, {lazyLoad = false, clean = true,}={}) 
     });
 }
 
+function createSeries (series, container, {lazyLoad = false, clean = true,}={}) {
+    if (clean) {
+        container.innerHTML='';
+    }
+    series.forEach(serie => {
+        const serieContainer = document.createElement('div');
+        serieContainer.classList.add('serie-container');//Added the class movie-container to the div in HTML
+
+        const serieImg = document.createElement('img');// Created the element img in HTML
+        serieImg.classList.add('serie-img');// Added the class movie-img to the img in HTML
+        serieImg.setAttribute('alt', serie.title);//added the attribute alt to the img
+        serieImg.setAttribute(lazyLoad ? 'data-img' : 'src', 'https://image.tmdb.org/t/p/w300/'+ serie.poster_path);//added the attribute src to the img
+        serieImg.addEventListener('error', () => {
+            serieImg.setAttribute('src', '/assets/error.jpg');
+        });
+
+        serieImg.addEventListener('click', () => {
+            location.hash = '#serie=' + serie.id;
+        });
+
+        const serieBtn = document.createElement('button');
+        serieBtn.classList.add('movie-btn');
+        likedMoviesList()[serie.id] && serieBtn.classList.add('movie-btn--liked');
+        serieBtn.addEventListener('click', () => {
+            serieBtn.classList.toggle('movie-btn--liked');
+            likeMovie(serie);
+        });
+
+        if (lazyLoad) {
+        lazyLoader.observe(serieImg);
+        }
+
+        serieContainer.appendChild(serieImg);//added the image to the div
+        serieContainer.appendChild(serieBtn) 
+        container.appendChild(serieContainer);//added the div to the article in html
+
+
+    });
+}
+
 function createCategories(categories, container) {
     container.innerHTML= '';// avoid to download again the movies and the categories
 
@@ -115,10 +156,17 @@ function createCategories(categories, container) {
 // calls to the API
 
 async function getTrendingMoviesPreview() {
-    const {data} = await api('trending/all/day');
+    const {data} = await api('trending/movie/day');
     const movies = data.results;
 
     createMovies(movies, trendingMoviesPreviewList, true);
+}
+
+async function getTrendindSeriesPreview() {
+    const {data} = await api('trending/tv/day');
+    const series = data.results;
+
+    createSeries(series, trendingSeriesPreviewList, true);
 }
 
 async function getCategoriesPreview() {
