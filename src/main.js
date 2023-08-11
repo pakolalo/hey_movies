@@ -1,4 +1,4 @@
-//Data
+//DatadingPreview
 
 const api = axios.create({
     baseURL:'https://api.themoviedb.org/3/',
@@ -244,11 +244,19 @@ function getPaginatedMoviesBySearch(query) {
 }
 
 async function getTrendingMovies() {
-    const {data} = await api('trending/all/day');
+    const {data} = await api('trending/movie/day');
     const movies = data.results;
     maxPage = data.total_pages;
 
     createMovies(movies, genericSection, {lazyLoad: true, clean: true},);
+}
+
+async function getTrendingSeries() {
+    const {data} = await api('trending/tv/day');
+    const series = data.results;
+    maxPage = data.total_pages;
+
+    createSeries(series, genericSection, {lazyLoad:true, clean: true},);
 }
 
 async function getPaginatedTrendingMovies() {
@@ -259,13 +267,31 @@ async function getPaginatedTrendingMovies() {
 
     if (scrollBottom && pageIsNotMax) {
     page ++;
-    const {data} = await api('trending/all/day', {
+    const {data} = await api('trending/movie/day', {
         params: {
             page,
         },
     });
     const movies = data.results;
     createMovies(movies, genericSection, {lazyLoad: true, clean: false},);
+    };
+}
+
+async function getPaginatedTrendingSeries() {
+    const {scrollTop, scrollHeight, clientHeight} = document.documentElement;
+
+    const scrollBottom = (scrollTop + clientHeight) >= (scrollHeight - 15);
+    const pageIsNotMax = page < maxPage;
+
+    if (scrollBottom && pageIsNotMax) {
+        page ++;
+        const {data} = await api('trending/tv/day', {
+            params: {
+                page,
+            },
+        });
+        const series = data.results;
+        createSeries(series, genericSection, {lazyLoad:true, clean: false},);
     };
 }
 
@@ -288,6 +314,27 @@ async function  getMovieById(id) {
 
     createCategories(movie.genres, movieDetailCategoriesList)
     getRelatedMoviesId(id);
+};
+
+async function getSerieById(id) {
+    const {data: tv} = await api('tv/' + id);
+
+    const serieImgUrl = 'https://image.tmdb.org/t/p/w500/' + tv.poster_path;
+
+    headerSection.style.background = `
+    linear-gradient(
+        180deg, 
+        rgba(0, 0, 0, 0.35) 19.27%, 
+        rgba(0, 0, 0, 0) 29.17%
+        ),
+    url(${serieImgUrl})
+    `;
+    movieDetailTitle.textContent = tv.title;
+    movieDetailDescription.textContent = tv.overview;
+    movieDetailScore.textContent = tv.vote_average;
+
+    //createCategories(movie.genres, movieDetailCategoriesList)
+    //getRelatedMoviesId(id);
 };
 
 async function getRelatedMoviesId (id) {
