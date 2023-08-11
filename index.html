@@ -4,29 +4,26 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Dosis:wght@700;800&family=Red+Hat+Display:wght@400;500&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./styles/app.css" />
     <title>Hey Movies</title>
   </head>
   <body>
     <header id="header" class="header-container">
       <span class="header-arrow inactive">&lt;</span>
-      <h1 class="header-title">Hey Movies</h1>
+      <h1 class="header-title">Hey Movies & Series</h1>
       <h1 class="header-title header-title--categoryView inactive"></h1>
       <form id="searchForm" class="header-searchForm">
         <input type="text" placeholder="Search" />
-        <button id="searchBtn">🔍</button>
+        <button id="searchBtn"><img src="./assets/bx-search.svg" alt="search icon"></button>
       </form>
     </header>
     <section id="trendingMoviesPreview" class="trendingMoviesPreview-container">
       <div class="trendingPreview-header">
         <h2 class="trendingPreview-title">Trending Movies</h2>
-        <button class="trendingPreview-btn">More</button>
+        <button class="trendingPreview-btn">More <img src="./assets/bx-expand-vertical.svg" alt="expand vertical icon"></button>
       </div>
       <article class="trendingPreview-movieList">
         <div class="movie-container movie-container--loading"></div>
@@ -38,7 +35,7 @@
     <section id="trendingSeriesPreview" class="trendingSeriesPreview-container">
       <div class="trendingPreview-header">
         <h2 class="trendingPreview-title">Trending Series</h2>
-        <button class="trendingSeriesPreview-btn">More</button>
+        <button class="trendingSeriesPreview-btn">More <img src="./assets/bx-expand-vertical.svg" alt="expand vertical icon"></button>
       </div>
       <article class="trendingPreview-serieList">
         <div class="serie-container movie-container--loading"></div>
